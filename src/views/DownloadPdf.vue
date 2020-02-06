@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       status: {
+        showSpinner: false,
         showSuccess: false,
         showErrors: false,
       },
