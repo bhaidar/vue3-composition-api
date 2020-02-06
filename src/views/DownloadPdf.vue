@@ -24,12 +24,16 @@ export default {
   },
   methods: {
     downloadPdf(fileName) {
+      this.status = { ...this.status, showSpinner: true };
+
       axios.get(`/assets/${fileName}`, {
         responseType: 'arraybuffer',
         headers: {
           Accept: 'application/pdf',
         },
       }).then((response) => {
+        this.status = { ...this.status, showSpinner: false, showSuccess: true };
+
         const arrayBufferView = new Uint8Array(response.data);
         const blob = new Blob([arrayBufferView], {
           type: 'application/pdf',
@@ -41,6 +45,8 @@ export default {
         fileLink.setAttribute('download', `${this.randomNumber()}-${fileName}`);
         document.body.appendChild(fileLink);
         fileLink.click();
+      }).catch(() => {
+        this.status = { ...this.status, showSpinner: false, showErrors: true };
       });
     },
     randomNumber() {

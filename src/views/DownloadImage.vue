@@ -26,12 +26,21 @@ export default {
   },
   methods: {
     downloadImage(fileName) {
+      this.status = { ...this.status, showSpinner: true };
+      // eslint-disable-next-line no-console
+      console.log({ status: this.status });
+
       axios.get(`/assets/${fileName}`, {
         responseType: 'arraybuffer',
         headers: {
           Accept: 'image/jpg',
         },
       }).then((response) => {
+        this.status = { ...this.status, showSpinner: false, showSuccess: true };
+
+        // eslint-disable-next-line no-console
+        console.log({ status: this.status });
+
         const arrayBufferView = new Uint8Array(response.data);
         const blob = new Blob([arrayBufferView], {
           type: 'image/jpg',
@@ -43,6 +52,10 @@ export default {
         fileLink.setAttribute('download', `${this.randomNumber()}-${fileName}`);
         document.body.appendChild(fileLink);
         fileLink.click();
+      }).catch(() => {
+        this.status = { ...this.status, showSpinner: false, showErrors: true };
+        // eslint-disable-next-line no-console
+        console.log({ status: this.status });
       });
     },
     randomNumber() {
