@@ -1,11 +1,14 @@
 <template>
   <div class="download-image">
-     <DownloadFileButton link="Download Image File" @download-file-btn="downloadImage" />
-      <img src="/assets/women-technology.jpg" alt="Women in Technology">
+    <DownloadFileButton link="Download Image File"
+      @download-file-btn="downloadImage('women-technology.jpg')" />
+    <img src="/assets/women-technology.jpg" alt="Women in Technology">
   </div>
 </template>
 
 <script>
+import axios from '@/http-common.js';
+
 import DownloadFileButton from '@/components/DownloadFileButton.vue';
 
 export default {
@@ -22,7 +25,29 @@ export default {
     DownloadFileButton,
   },
   methods: {
-    downloadImage() { },
+    downloadImage(fileName) {
+      axios.get(`/assets/${fileName}`, {
+        responseType: 'arraybuffer',
+        headers: {
+          Accept: 'image/jpg',
+        },
+      }).then((response) => {
+        const arrayBufferView = new Uint8Array(response.data);
+        const blob = new Blob([arrayBufferView], {
+          type: 'image/jpg',
+        });
+        const urlCreator = window.URL || window.webkitURL;
+        const fileUrl = urlCreator.createObjectURL(blob);
+        const fileLink = document.createElement('a');
+        fileLink.href = fileUrl;
+        fileLink.setAttribute('download', `${this.randomNumber()}-${fileName}`);
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      });
+    },
+    randomNumber() {
+      return Math.floor(Math.random() * 100);
+    },
   },
 };
 </script>
