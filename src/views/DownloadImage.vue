@@ -1,7 +1,7 @@
 <template>
   <div class="download-image">
     <DownloadFileButton link="Download Image File"
-      @download-file-btn="downloadImage('women-technology.jpg')" />
+      @download-file-btn="downloadFile('women-technology.jpg', 'image/jpg')" />
 
       <div class="download-image__results">
         <span v-if="showSpinner" class="spinner">Downloading ...</span>
@@ -14,18 +14,21 @@
 </template>
 
 <script>
-import DownloadFileMixin from '@/mixins/DownloadFile.mixin';
+import { useDownloadFile } from '@/cmp-functions/download-file';
 import DownloadFileButton from '@/components/DownloadFileButton.vue';
 
 export default {
-  mixins: [DownloadFileMixin],
   components: {
     DownloadFileButton,
   },
-  methods: {
-    downloadImage(fileName) {
-      this.downloadFile(fileName, 'image/jpg');
-    },
+  setup() {
+    const {
+      showSpinner, showSuccess, showErrors, downloadFile,
+    } = useDownloadFile();
+
+    return {
+      showSpinner, showSuccess, showErrors, downloadFile,
+    };
   },
 };
 </script>
