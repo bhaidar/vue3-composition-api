@@ -1,8 +1,8 @@
 <template>
   <nav class="navigation">
       <ul class="navigation__list">
-          <li><a href="#">Download Image</a></li>
-          <li><a href="#">Download PDF</a></li>
+          <li><router-link to="/download-image">Download Image</router-link></li>
+          <li><router-link to="/download-pdf">Download PDF</router-link></li>
       </ul>
   </nav>
 </template>
@@ -39,7 +39,6 @@ export default {
 
             a {
                 display: block;
-                // height: 30px;
                 padding: 10px;
                 text-decoration: none;
 
@@ -53,6 +52,11 @@ export default {
         li:first-child {
             padding-left: 0;
         }
+    }
+
+    .router-link-active {
+        background: #E1BE68;
+        color: #fff;
     }
 }
 </style>
