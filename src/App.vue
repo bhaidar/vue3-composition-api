@@ -11,6 +11,11 @@ import Navigation from '@/components/Navigation.vue';
 import Header from '@/components/Header.vue';
 
 export default {
+  data() {
+    return {
+      src: '',
+    };
+  },
   components: {
     Header,
     Navigation,
