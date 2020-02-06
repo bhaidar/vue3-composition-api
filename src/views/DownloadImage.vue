@@ -1,15 +1,20 @@
 <template>
   <div class="download-image">
-      <div class="download-image__actions">
-        <a href="#">Download File</a>
-      </div>
+     <DownloadFileButton link="Download Image File" @download-file-btn="downloadImage" />
       <img src="/assets/women-technology.jpg" alt="Women in Technology">
   </div>
 </template>
 
 <script>
-export default {
+import DownloadFileButton from '@/components/DownloadFileButton.vue';
 
+export default {
+  components: {
+    DownloadFileButton,
+  },
+  methods: {
+    downloadImage() { },
+  },
 };
 </script>
 
@@ -27,12 +32,6 @@ export default {
 
   img {
     max-width: 80%;
-  }
-
-   &__actions{
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
   }
 }
 </style>

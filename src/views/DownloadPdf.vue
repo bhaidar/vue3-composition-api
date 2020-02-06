@@ -1,15 +1,20 @@
 <template>
   <div class="download-pdf">
-     <div class="download-pdf__actions">
-        <a href="#">Download File</a>
-      </div>
+     <DownloadFileButton link="Download Pdf File" @download-file-btn="downloadPdf" />
       <embed src="/assets/dummy.pdf" type="application/pdf">
   </div>
 </template>
 
 <script>
-export default {
+import DownloadFileButton from '@/components/DownloadFileButton.vue';
 
+export default {
+  components: {
+    DownloadFileButton,
+  },
+  methods: {
+    downloadPdf() {},
+  },
 };
 </script>
 
@@ -28,12 +33,6 @@ export default {
   embed {
     width: 80%;
     height: 80%;
-  }
-
-  &__actions{
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
   }
 }
 </style>
