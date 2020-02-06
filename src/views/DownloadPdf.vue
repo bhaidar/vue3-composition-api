@@ -9,6 +9,12 @@
 import DownloadFileButton from '@/components/DownloadFileButton.vue';
 
 export default {
+  data() {
+    return {
+      showSuccess: false,
+      showErrors: false,
+    };
+  },
   components: {
     DownloadFileButton,
   },
