@@ -28,7 +28,7 @@ export default {
       axios.get(`/assets/${fileName}`, {
         responseType: 'arraybuffer',
         headers: {
-          Accept: 'image/jpg',
+          Accept: contentType,
         },
       }).then(value => new Promise(resolve => setTimeout(resolve, 2000, value)))
         .then((response) => {
